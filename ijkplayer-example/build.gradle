@@ -1,0 +1,47 @@
+apply plugin: 'com.android.library'
+android {
+    // http://tools.android.com/tech-docs/new-build-system/tips
+    //noinspection GroovyAssignabilityCheck
+    compileSdkVersion 30
+    //noinspection GroovyAssignabilityCheck
+    buildToolsVersion "30.0.0"
+
+    lintOptions {
+        abortOnError false
+    }
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 30
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile 'androidx.appcompat:appcompat:1.0.0'
+    compile 'androidx.preference:preference:1.0.0'
+    compile 'androidx.annotation:annotation:1.0.0'
+
+    compile 'com.squareup:otto:1.3.8'
+
+//    compile project(':ijkplayer-java')
+//    compile project(':ijkplayer-exo')
+
+//    all32Compile project(':ijkplayer-armv5')
+//    all32Compile project(':ijkplayer-armv7a')
+//    all32Compile project(':ijkplayer-x86')
+//
+//    all64Compile project(':ijkplayer-armv5')
+//    all64Compile project(':ijkplayer-armv7a')
+//    all64Compile project(':ijkplayer-arm64')
+//    all64Compile project(':ijkplayer-x86')
+//    all64Compile project(':ijkplayer-x86_64')
+
+    implementation 'com.sdtv.haikan:ijkplayer:1.0.0'
+}

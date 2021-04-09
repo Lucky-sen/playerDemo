@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_one"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="default demo"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/btn_two"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="second demo"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/btn_three"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="third demo"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/btn_four"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="fourth demo"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="@color/white"
+        />
+
+    <Button
+        android:id="@+id/btn_five"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="fifth demo"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="@color/white"
+        />
+
+
+
+</LinearLayout>
