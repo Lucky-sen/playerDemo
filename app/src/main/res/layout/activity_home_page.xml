@@ -63,6 +63,17 @@
         android:background="@color/black_overlay"
         android:textColor="@color/white"
         />
+    <Button
+        android:id="@+id/btn_six"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="sixth demo"
+        android:textSize="18sp"
+        android:gravity="center"
+        android:background="@color/black_overlay"
+        android:textColor="@color/white"
+        />
 
 
 

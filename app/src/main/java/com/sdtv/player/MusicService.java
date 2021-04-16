@@ -108,7 +108,7 @@ public class MusicService extends Service {
 //                        MainActivity.handler.sendMessage(message);
                           //方法2，通过广播
                           //方法3，使用EventBus实现
-                          EventBus.getDefault().post(new UpdateUI(currentPosition,3));
+                          EventBus.getDefault().post(new UpdateUI(currentPosition));
                           Thread.sleep(1000);
                       } catch (InterruptedException e) {
                           e.printStackTrace();

@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sdtv.player">
 
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -23,6 +25,18 @@
         <activity android:name=".Demo3Activity"/>
         <activity android:name=".Demo4Activity"/>
         <activity android:name=".Demo5Activity"/>
+        <activity android:name=".Demo6Activity"
+            android:launchMode="singleTask"
+            />
+        <service android:name=".MybgService"/>
+        <service android:name=".LockScreenService"/>
+        <activity android:name=".LockScreenActivity"
+            android:launchMode="singleInstance"
+            android:exported="false"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.App.NoActionBar"
+            />
     </application>
 
 </manifest>
