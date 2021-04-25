@@ -47,6 +47,7 @@ public class LockScreenService extends Service {
         final String action = intent.getAction();
         if (Intent.ACTION_SCREEN_OFF.equals(action) ){
             Intent lockScreen = new Intent(this, LockScreenActivity.class);
+//            intent.putExtra("musicName", musicName);
             lockScreen.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(lockScreen);
         }
@@ -56,6 +57,7 @@ public class LockScreenService extends Service {
     public void onDestroy() {
         super.onDestroy();
         unregisterReceiver(screenBroadcastReceiver);
+        screenBroadcastReceiver = null;
     }
 
 }

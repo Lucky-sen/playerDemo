@@ -23,6 +23,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
     private Button button4;
     private Button button5;
     private Button button6;
+    private Button button7;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         button4 = findViewById(R.id.btn_four);
         button5 = findViewById(R.id.btn_five);
         button6 = findViewById(R.id.btn_six);
+        button7 = findViewById(R.id.btn_seven);
 
 
         button1.setOnClickListener(this);
@@ -42,6 +44,7 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
         button4.setOnClickListener(this);
         button5.setOnClickListener(this);
         button6.setOnClickListener(this);
+        button7.setOnClickListener(this);
     }
 
     @Override
@@ -70,6 +73,10 @@ public class HomePageActivity extends AppCompatActivity implements View.OnClickL
             case R.id.btn_six:
                 Intent intent5 = new Intent(HomePageActivity.this,Demo6Activity.class);
                 startActivity(intent5);
+                break;
+            case R.id.btn_seven:
+                Intent intent6 = new Intent(HomePageActivity.this,MusicPlayerActivity.class);
+                startActivity(intent6);
                 break;
         }
     }

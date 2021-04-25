@@ -27,6 +27,22 @@
         android:layout_marginLeft="16dp"
         />
 
+    <Button
+        android:id="@+id/btn_last"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="上一首"
+        android:layout_marginLeft="16dp"
+        />
+
+    <Button
+        android:id="@+id/btn_next"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="下一首"
+        android:layout_marginLeft="16dp"
+        />
+
     <SeekBar
         android:id="@+id/seek_bar"
         android:layout_width="match_parent"

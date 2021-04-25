@@ -3,6 +3,9 @@
     package="com.sdtv.player">
 
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.TYPE_APPLICATION_OVERLAY" />
+
 
     <application
         android:allowBackup="true"
@@ -32,11 +35,15 @@
         <service android:name=".LockScreenService"/>
         <activity android:name=".LockScreenActivity"
             android:launchMode="singleInstance"
+            android:taskAffinity="com.sdtv.lock"
+            android:excludeFromRecents="true"
             android:exported="false"
             android:noHistory="true"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.App.NoActionBar"
+            android:theme="@style/LockScreenTheme"
             />
+        <activity android:name=".MusicPlayerActivity"/>
+        <service android:name=".MusicPlayerService"/>
     </application>
 
 </manifest>

@@ -93,12 +93,14 @@ public class MybgService extends Service  {
         Intent intent = new Intent(this, Demo6Activity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         //播放上一首
-        Intent previousButtonIntent = new Intent(ACTION_PRE_SONG);
+        Intent previousButtonIntent = new Intent();
+        previousButtonIntent.setAction(ACTION_PRE_SONG);
         PendingIntent pendPreviousButtonIntent = PendingIntent.getBroadcast(this, 0, previousButtonIntent, 0);
         contentViews.setOnClickPendingIntent(R.id.btn_last, pendPreviousButtonIntent);
         builder.setContentIntent(pendingIntent);
         //播放/暂停添加点击监听
-        Intent playPauseButtonIntent = new Intent(ACTION_PLAY_AND_PAUSE);
+        Intent playPauseButtonIntent = new Intent();
+        playPauseButtonIntent.setAction(ACTION_PLAY_AND_PAUSE);
         PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(this, 0, playPauseButtonIntent, 0);
         contentViews.setOnClickPendingIntent(R.id.btn_pause, playPausePendingIntent);
         //下一首图标添加监听
@@ -129,25 +131,20 @@ public class MybgService extends Service  {
     }
 
 
-    public class Mybind extends Binder
-    {
+    public class Mybind extends Binder {
         //获取歌曲长度
-        public int getMusicDuration()
-        {
+        public int getMusicDuration() {
             int rtn = 0;
-            if (mediaPlayer != null)
-            {
+            if (mediaPlayer != null) {
                 rtn = (int) mediaPlayer.getDuration();
             }
 
             return rtn;
         }
         //获取当前播放进度
-        public int getMusicCurrentPosition()
-        {
+        public int getMusicCurrentPosition() {
             int rtn = 0;
-            if (mediaPlayer != null)
-            {
+            if (mediaPlayer != null) {
                 rtn = (int) mediaPlayer.getCurrentPosition();
 
             }
@@ -155,10 +152,8 @@ public class MybgService extends Service  {
             return rtn;
         }
 
-        public void seekTo(int position)
-        {
-            if (mediaPlayer != null)
-            {
+        public void seekTo(int position) {
+            if (mediaPlayer != null) {
                 mediaPlayer.seekTo(position);
             }
         }

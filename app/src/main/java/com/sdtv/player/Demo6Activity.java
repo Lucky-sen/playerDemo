@@ -35,7 +35,7 @@ import static com.sdtv.player.MybgService.ACTION_PRE_SONG;
  */
 public class Demo6Activity extends AppCompatActivity implements View.OnClickListener, MediaBroadCastReciver.CastMediaPlayListener {
 
-    private Button btnPlay,btnPause,btnStop;
+    private Button btnPlay,btnPause,btnStop,btnLast,btnNext;
     private TextView tvCurrent,tvMax;
     private SeekBar seekBar;
     private MybgService.Mybind mybind;
@@ -49,7 +49,7 @@ public class Demo6Activity extends AppCompatActivity implements View.OnClickList
     //防止拖动进度条时，计时器更改进度条与手动拖动冲突
     private boolean isSeekBarChanging = false;
     private MediaBroadCastReciver broadCastReciver;
-    //当前所播放的音频位置
+    //当前所播放的音频
     private int playPosition = 0;
 
     @Override
@@ -76,10 +76,14 @@ public class Demo6Activity extends AppCompatActivity implements View.OnClickList
         seekBar = findViewById(R.id.seek_bar);
         tvCurrent = findViewById(R.id.tv_current);
         tvMax = findViewById(R.id.tv_max);
+        btnLast = findViewById(R.id.btn_last);
+        btnNext = findViewById(R.id.btn_next);
 
         btnPlay.setOnClickListener(this);
         btnPause.setOnClickListener(this);
         btnStop.setOnClickListener(this);
+        btnLast.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
@@ -99,6 +103,9 @@ public class Demo6Activity extends AppCompatActivity implements View.OnClickList
         });
     }
 
+    /**
+     * 获取音频播放列表
+     */
     private void initData(){
         pathList.add(path);
         pathList.add(pathTwo);
@@ -182,6 +189,12 @@ public class Demo6Activity extends AppCompatActivity implements View.OnClickList
                 intent.putExtra("action", "stop");
                 startService(intent);
                 break;
+            case R.id.btn_last:
+
+                break;
+            case R.id.btn_next:
+
+                break;
             default:
                 break;
         }
@@ -202,7 +215,10 @@ public class Demo6Activity extends AppCompatActivity implements View.OnClickList
         if(playPosition > pathList.size() - 1){
             playPosition = 0;
         }
-        play(pathList.get(playPosition));
+        String path = pathList.get(playPosition);
+        intent.putExtra("action", "next");
+        intent.putExtra("path",path);
+        startService(intent);
     }
 
     private void playLastMedia(){
@@ -210,7 +226,10 @@ public class Demo6Activity extends AppCompatActivity implements View.OnClickList
         if(playPosition < 0){
             playPosition = pathList.size() - 1;
         }
-        play(pathList.get(playPosition));
+        String path = pathList.get(playPosition);
+        intent.putExtra("action", "last");
+        intent.putExtra("path",path);
+        startService(intent);
     }
 
     private void playPause(){
