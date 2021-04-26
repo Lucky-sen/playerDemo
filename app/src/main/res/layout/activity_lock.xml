@@ -60,7 +60,40 @@
         android:textSize="16sp"
         android:textColor="#ffffff"/>
 
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:layout_above="@+id/tv_move"
+        android:gravity="center_horizontal"
+        android:layout_marginBottom="30dp"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/btn_pre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="上一条"
+            android:background="@color/design_default_color_secondary"
+            />
+        <Button
+            android:id="@+id/btn_pause"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="暂停"
+            android:background="@color/design_default_color_secondary"
+            />
+        <Button
+            android:id="@+id/btn_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="下一条"
+            android:background="@color/design_default_color_secondary"
+            />
+    </LinearLayout>
+
     <com.sdtv.player.view.HintTextView
+        android:id="@+id/tv_move"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"

@@ -39,13 +39,14 @@ public class MusicPlayerService extends Service {
     public static String ACTION_PLAY_AND_PAUSE = "play_and_pause";
     public static String ACTION_NEXT_SONG = "next_song";
 
-    MediaBroadCastReciver broadCastReciver;
-
     NotificationManager notificationManager;
 
     private IjkMediaPlayer mediaPlayer;
 
     private String playPath;
+
+    //通知栏当前标记播放状态
+    private boolean isPlaying = true;
 
     @Override
     public void onCreate() {
@@ -97,6 +98,11 @@ public class MusicPlayerService extends Service {
         playPauseButtonIntent.setAction(ACTION_PLAY_AND_PAUSE);
         PendingIntent playPausePendingIntent = PendingIntent.getBroadcast(this, 0, playPauseButtonIntent, 0);
         contentViews.setOnClickPendingIntent(R.id.btn_pause, playPausePendingIntent);
+        if(isPlaying){
+            contentViews.setTextViewText(R.id.btn_pause, "暂停");
+        }else {
+            contentViews.setTextViewText(R.id.btn_pause, "播放");
+        }
         //下一首图标添加监听
         Intent nextButtonIntent = new Intent(ACTION_NEXT_SONG);
         PendingIntent pendNextButtonIntent = PendingIntent.getBroadcast(this, 0, nextButtonIntent, 0);
@@ -116,17 +122,36 @@ public class MusicPlayerService extends Service {
             mediaPlayer = new IjkMediaPlayer();
         }
         try{
+            mediaPlayer.reset();
             mediaPlayer.setDataSource(playPath);
             mediaPlayer.prepareAsync();
             mediaPlayer.setOnPreparedListener(new IMediaPlayer.OnPreparedListener() {
                 @Override
                 public void onPrepared(IMediaPlayer iMediaPlayer) {
                     iMediaPlayer.start();
+                    isPlaying = true;
+                    startLockScreenService();
                 }
             });
         }catch (Exception e){
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * 歌曲在播放时，开启锁屏服务
+     */
+    private void startLockScreenService(){
+        Intent intent = new Intent(this,LockScreenService.class);
+        startService(intent);
+    }
+
+    /**
+     * 歌曲暂停或者停止，关闭锁屏服务
+     */
+    private void stopLockScreenService(){
+        Intent intent = new Intent(this,LockScreenService.class);
+        stopService(intent);
     }
 
 
@@ -145,23 +170,25 @@ public class MusicPlayerService extends Service {
             case "pause":
                 if(mediaPlayer!=null){
                     mediaPlayer.pause();
+                    isPlaying = false;
+                    stopLockScreenService();
+                    createNotification();
                 }
                 break;
             case "continue":
+                startLockScreenService();
                 mediaPlayer.start();
+                isPlaying = true;
+                createNotification();
                 break;
             case "stop":
                 if(mediaPlayer!=null){
+                    stopLockScreenService();
                     mediaPlayer.stop();
                     mediaPlayer.release();
                     mediaPlayer = null;
+                    isPlaying = false;
                 }
-                break;
-            case "last":
-
-                break;
-            case "next":
-
                 break;
             default:
                 break;
@@ -185,6 +212,7 @@ public class MusicPlayerService extends Service {
         }
         //停止前台服务
         stopForeground(true);
+        stopLockScreenService();
         return super.onUnbind(intent);
     }
 

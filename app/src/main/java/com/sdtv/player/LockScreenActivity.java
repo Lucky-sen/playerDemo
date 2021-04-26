@@ -1,12 +1,14 @@
 package com.sdtv.player;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -18,12 +20,18 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import static com.sdtv.player.MusicPlayerService.ACTION_NEXT_SONG;
+import static com.sdtv.player.MusicPlayerService.ACTION_PLAY_AND_PAUSE;
+import static com.sdtv.player.MusicPlayerService.ACTION_PRE_SONG;
+
 /**
  * 作者：admin016
  * 日期时间: 2021/4/16 14:18
  * 内容描述:
  */
-public class LockScreenActivity extends AppCompatActivity implements SlidingFinishLayout.OnSlidingFinishListener{
+public class LockScreenActivity extends AppCompatActivity implements SlidingFinishLayout.OnSlidingFinishListener, View.OnClickListener {
+
+    private Button btnPre,btnPause,btnNext;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +72,9 @@ public class LockScreenActivity extends AppCompatActivity implements SlidingFini
 
 
     private void initView() {
+        btnPre = findViewById(R.id.btn_pre);
+        btnPause = findViewById(R.id.btn_pause);
+        btnNext = findViewById(R.id.btn_next);
         TextView tvLockTime = findViewById(R.id.lock_time);
         TextView tvLockDate = findViewById(R.id.lock_date);
         SlidingFinishLayout vLockRoot = findViewById(R.id.lock_root);
@@ -73,6 +84,10 @@ public class LockScreenActivity extends AppCompatActivity implements SlidingFini
         String[] date = simpleDateFormat.format(new Date()).split("-");
         tvLockTime.setText(date[0]);
         tvLockDate.setText(date[1]);
+
+        btnPre.setOnClickListener(this);
+        btnPause.setOnClickListener(this);
+        btnNext.setOnClickListener(this);
     }
 
     /**
@@ -88,5 +103,28 @@ public class LockScreenActivity extends AppCompatActivity implements SlidingFini
     @Override
     public void onSlidingFinish() {
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.btn_pre:
+                Intent intent = new Intent(ACTION_PRE_SONG);
+                sendBroadcast(intent);
+                break;
+            case R.id.btn_pause:
+                if("暂停".equals(btnPause.getText().toString())){
+                    btnPause.setText("播放");
+                }else if("播放".equals(btnPause.getText().toString())){
+                    btnPause.setText("暂停");
+                }
+                Intent intentPause = new Intent(ACTION_PLAY_AND_PAUSE);
+                sendBroadcast(intentPause);
+                break;
+            case R.id.btn_next:
+                Intent intentNext = new Intent(ACTION_NEXT_SONG);
+                sendBroadcast(intentNext);
+                break;
+        }
     }
 }

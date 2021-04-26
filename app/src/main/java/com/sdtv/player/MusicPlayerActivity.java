@@ -114,6 +114,7 @@ public class MusicPlayerActivity extends AppCompatActivity implements View.OnCli
         intentFilter.addAction(ACTION_PLAY_AND_PAUSE);
         intentFilter.addAction(ACTION_PRE_SONG);
         registerReceiver(broadCastReciver,intentFilter);
+        broadCastReciver.setCastMediaPlayListener(this);
         pathList.add(path);
         pathList.add(pathTwo);
         pathList.add(pathThree);
@@ -147,32 +148,49 @@ public class MusicPlayerActivity extends AppCompatActivity implements View.OnCli
                 startService(intent);
                 break;
             case R.id.btn_last:
-
+                playLast();
                 break;
             case R.id.btn_next:
-
+                playNext();
                 break;
         }
     }
 
     @Override
     public void playNext() {
-
+        playPosition = playPosition + 1;
+        if(playPosition > pathList.size() - 1){
+            playPosition = 0;
+        }
+        String playPath = pathList.get(playPosition);
+        intent.putExtra("action", "play");
+        intent.putExtra("path", playPath);
+        startService(intent);
     }
 
     @Override
     public void playAndPause() {
-        if(myBinder!=null){
-            if(myBinder.isMediaPlaying()){
-                intent.putExtra("action", "pause");
-                btnPause.setText("");
-            }
+        if("暂停".equals(btnPause.getText().toString())){
+            intent.putExtra("action", "pause");
+            btnPause.setText("继续");
+        }else if("继续".equals(btnPause.getText().toString())){
+            intent.putExtra("action", "continue");
+            btnPause.setText("暂停");
         }
+        intent.putExtra("path", pathList.get(playPosition));
+        startService(intent);
     }
 
     @Override
     public void playLast() {
-
+        playPosition = playPosition - 1;
+        if(playPosition < 0){
+            playPosition = pathList.size() - 1;
+        }
+        String playPath = pathList.get(playPosition);
+        intent.putExtra("action", "play");
+        intent.putExtra("path", playPath);
+        startService(intent);
     }
 
     /**
